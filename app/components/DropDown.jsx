@@ -5,24 +5,21 @@ const DropDown = ({ isOpen, toggle }) => {
       <div
         className={
           isOpen
-            ? 'grid grid-rows-4 text-center items-center bg-yellow-500'
+            ? 'grid grid-rows-4 text-center items-center '
             : 'hidden'
         }
         onClick={toggle}
       >
-        <Link to="/" className="p-4">
+        <Link to="/artworks" className="p-4">
           Artworks
         </Link>
-        <Link to="/" className="p-4">
+        <Link to="/projects" className="p-4">
           Projects
         </Link>
-        <Link to="/" className="p-4">
-          Blog
-        </Link>
-        <Link to="/" className="p-4">
+        <Link to="/about" className="p-4">
           About
         </Link>
-        <Link to="/" className="p-4">
+        <Link to="/contact" className="p-4">
           Contact
         </Link>
       </div>

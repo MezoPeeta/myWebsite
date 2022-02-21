@@ -1,6 +1,6 @@
 import ContactLanding from "~/components/contact/landing_contact";
 
-import nodemailer from "nodemailer";
+import sgMail from '../utils/sendGrid.server.js';
 
 import { Meta, redirect } from "remix";
 
@@ -10,7 +10,11 @@ export const meta = () => {
     title,
   };
 };
+
+sgMail.setApiKey('TOKEN');
+
 export const action = async ({ request }) => {
+  
   const form = await request.formData();
 
   const name = form.get("name");
@@ -19,29 +23,29 @@ export const action = async ({ request }) => {
   const email = form.get("email");
 
   const message = form.get("message");
-
-  var transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 457,
-    secure: true,
-    service: "gmail",
-    auth: {
-      user: "wildlifemain1@gmail.com",
-      pass: "iditkanzwjhkxojx",
-    },
-  });
-
-  transporter.sendMail({
-    from: email,
+  
+  const msg = {
+    from: 'hardlight555@gmail.com',
     to: "wildlifemain1@gmail.com",
     subject: subject? subject : "Contact",
     html: `
+    <h1>Name: ${name} </h1> <br>
     <h1>from:</h1> <br>
     <h1>${email}</h1> <br>
     <h1>Message: </h1><br>
     <h1>${message}</h1>
     `,
+  };
+
+  sgMail
+  .send(msg)
+  .then(() => {
+    console.log('Email sent')
+  })
+  .catch((error) => {
+    console.error(error)
   });
+
 
   return redirect("/contact");
 };

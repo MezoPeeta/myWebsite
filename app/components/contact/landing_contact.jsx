@@ -1,7 +1,9 @@
-import {Form} from 'remix';
+import {Form,useTransition} from 'remix';
 
 function ContactLanding() {
+  const transition = useTransition();
   return (
+    
     <div>
       <div className="mx-auto container text-2xl py-20 ">
         <div className="flex md:justify-center md:flex-row flex-col-reverse gap-40 ">
@@ -22,6 +24,7 @@ function ContactLanding() {
         </div>
       </div>
       <div className="xl:py-52 xl:px-96 px-5 flex items-center md:pl-32">
+        
         <Form method="POST" action="/contact">
           <label htmlFor="name" className="text-xl">
             Name
@@ -74,9 +77,10 @@ function ContactLanding() {
             type="submit"
             className="border border-black py-5 px-14 rounded-full mt-5 text-xl hover:bg-slate-900 hover:text-white "
           >
-            Send Email
+            {transition.state === 'submitting'? "Sending..." : "Send Email"}
           </button>
         </Form>
+
       </div>
     </div>
   );

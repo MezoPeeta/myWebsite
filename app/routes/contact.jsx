@@ -2,7 +2,7 @@ import ContactLanding from "~/components/contact/landing_contact";
 
 import sgMail from '../utils/sendGrid.server.js';
 
-import { Meta, redirect } from "remix";
+import {Meta, redirect} from "remix";
 
 export const meta = () => {
   const title = "Contact";
@@ -11,10 +11,9 @@ export const meta = () => {
   };
 };
 
-sgMail.setApiKey('TOKEN');
 
 export const action = async ({ request }) => {
-  
+
   const form = await request.formData();
 
   const name = form.get("name");
@@ -40,7 +39,7 @@ export const action = async ({ request }) => {
   sgMail
   .send(msg)
   .then(() => {
-    console.log('Email sent')
+    console.log('Email sent');
   })
   .catch((error) => {
     console.error(error)
@@ -51,6 +50,7 @@ export const action = async ({ request }) => {
 };
 
 function Contact() {
+
   return (
     <div>
       <Meta />
